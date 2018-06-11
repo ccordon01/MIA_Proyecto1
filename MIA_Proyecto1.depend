@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1528692209 source:c:\users\carlos\documents\mia\mia_proyecto1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"analizador.h"
+
+1528696286 c:\users\carlos\documents\mia\mia_proyecto1\analizador.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+

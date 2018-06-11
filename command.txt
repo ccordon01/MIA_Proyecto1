@@ -1,0 +1,2 @@
+1 MKDISK
+2 RMDISK
