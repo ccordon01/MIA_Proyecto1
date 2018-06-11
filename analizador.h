@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
+#include "mkdisk.h"
 #define MAX 2
 
 typedef struct command
@@ -51,6 +52,7 @@ void load()
 
     }
     fclose(fp);
+    free(fp);
 }
 
 int isKeyword(char buffer[])
@@ -66,9 +68,21 @@ int isKeyword(char buffer[])
     return 0;
 }
 
+
+void commandAnalyzer(int state, char str[], int start)
+{
+    switch(state)
+    {
+    case 1:
+        mkContructor(state,str,start);
+        break;
+    }
+}
+
 int analyzer(char str[])
 {
     char ch, buffer[15];
+    memset(&buffer,'\0',sizeof(buffer));
     int i=0,j=0;
     while((ch = str[i++]) != '\0')
     {
@@ -80,17 +94,18 @@ int analyzer(char str[])
         else if((ch == ' ' || ch == '\n') && (j != 0))
         {
             buffer[j] = '\0';
+            j = 0;
             int state = isKeyword(buffer);
             if(state != 0)
+            {
                 printf("%s is keyword\n", buffer);
-                commandAnalyzer(state, str, j);
+                commandAnalyzer(state, str, i);
+            }
             else
                 printf("%s No es un comando valido!\n", buffer);
-            j = 0;
             free(buffer);
             return 0;
         }
-
     }
     return 0;
 }
