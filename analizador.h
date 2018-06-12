@@ -52,7 +52,6 @@ void load()
 
     }
     fclose(fp);
-    free(fp);
 }
 
 int isKeyword(char buffer[])
@@ -98,12 +97,11 @@ int analyzer(char str[])
             int state = isKeyword(buffer);
             if(state != 0)
             {
-                printf("%s is keyword\n", buffer);
+                // printf("%s is keyword\n", buffer);
                 commandAnalyzer(state, str, i);
             }
             else
                 printf("%s No es un comando valido!\n", buffer);
-            free(buffer);
             return 0;
         }
     }

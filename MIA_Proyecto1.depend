@@ -18,3 +18,24 @@
 	<ctype.h>
 	<stdbool.h>
 
+1528760124 source:/home/carlos/Documents/MIA/MIA_Proyecto1/main.c
+	<stdio.h>
+	<stdlib.h>
+	"analizador.h"
+
+1528780216 /home/carlos/Documents/MIA/MIA_Proyecto1/analizador.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"mkdisk.h"
+
+1528784516 /home/carlos/Documents/MIA/MIA_Proyecto1/mkdisk.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<stdbool.h>
+	<dirent.h>
+	<errno.h>
+
