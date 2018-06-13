@@ -18,19 +18,21 @@
 	<ctype.h>
 	<stdbool.h>
 
-1528760124 source:/home/carlos/Documents/MIA/MIA_Proyecto1/main.c
+1528812741 source:/home/carlos/Documents/MIA/MIA_Proyecto1/main.c
 	<stdio.h>
 	<stdlib.h>
 	"analizador.h"
 
-1528780216 /home/carlos/Documents/MIA/MIA_Proyecto1/analizador.h
+1528867461 /home/carlos/Documents/MIA/MIA_Proyecto1/analizador.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<ctype.h>
 	"mkdisk.h"
+	"rmdisk.h"
 
-1528784516 /home/carlos/Documents/MIA/MIA_Proyecto1/mkdisk.h
+1528869508 /home/carlos/Documents/MIA/MIA_Proyecto1/mkdisk.h
+	<time.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -38,4 +40,18 @@
 	<stdbool.h>
 	<dirent.h>
 	<errno.h>
+	"structures.h"
+
+1528813779 /home/carlos/Documents/MIA/MIA_Proyecto1/rmdisk.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<stdbool.h>
+	<dirent.h>
+	<errno.h>
+
+1528868774 /home/carlos/Documents/MIA/MIA_Proyecto1/structures.h
+	<stdio.h>
+	<stdlib.h>
 

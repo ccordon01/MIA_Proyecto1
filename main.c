@@ -8,6 +8,10 @@ int main()
     memset(str,'\0',sizeof(str));
     gets( str );
     load();
+    while(strcasecmp(str,"EXIT") != 0){
     analyzer(str);
+    memset(str,'\0',sizeof(str));
+    gets( str );
+    }
     return 0;
 }

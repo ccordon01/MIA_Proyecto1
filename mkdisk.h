@@ -1,3 +1,4 @@
+#include <time.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -5,6 +6,7 @@
 #include<stdbool.h>
 #include <dirent.h>
 #include <errno.h>
+#include "structures.h"
 
 typedef struct mkdisk
 {
@@ -22,6 +24,9 @@ typedef struct param
 
 int mkContructor(int state, char str[], int cont)
 {
+    // Size Disk
+    int sizeDisk = 1024;
+    // Command MKDISK
     mk_init mk;
     memset(&mk.name,'\0',sizeof(mk.name));
     memset(&mk.path,'\0',sizeof(mk.path));
@@ -36,6 +41,7 @@ int mkContructor(int state, char str[], int cont)
     memset(&name,'\0',sizeof(name));
     while((ch = str[cont++]) != '\0')
     {
+        // printf("%c %s\n",ch,read ? "true" : "false");
         if(ch == '-' && read)
         {
             buffer[j] = '\0';
@@ -45,12 +51,12 @@ int mkContructor(int state, char str[], int cont)
             memset(&buffer,'\0',sizeof(buffer));
         }
 
-        if(ch == '\"')
+        if(ch == '\"' || ch == '\”')
         {
             read = !read;
         }
 
-        if(isalnum(ch) || ch == '/' || ch == '.')
+        if(isalnum(ch) || ch == '/' || ch == '.' || ch == '_')
         {
             buffer[j++] = ch;
         }
@@ -108,7 +114,16 @@ int mkContructor(int state, char str[], int cont)
             else if(strcasecmp("UNIT", name) == 0)
             {
                 memset(&mk.unit,'\0',sizeof(mk.unit));
-                strcat(mk.unit, buffer);
+                if(strcasecmp("M",buffer)){
+                    strcat(mk.unit, 'M');
+                    sizeDisk = 1024 * 1024;
+                }
+                else if(strcasecmp("K",buffer)){
+                    strcat(mk.unit, 'K');
+                    sizeDisk = 1024;
+                }
+                else{
+                }
             }
             else
             {
@@ -117,10 +132,12 @@ int mkContructor(int state, char str[], int cont)
             j = 0;
             memset(&buffer,'\0',sizeof(buffer));
         }
-    /* printf("%s\n", mk.name);
+    /*printf("%s\n", mk.name);
     printf("%s\n", mk.path);
-    printf("%d\n", mk.sizedisk);
-    printf("%s\n", mk.unit); */
+    printf("%d\n", mk.sizeDisk);
+    printf("%s\n", mk.unit);
+    printf("%d\n", mk.sizeDisk*sizeDisk);*/
+    // mkdisk &SiZe->8 &pAth->"/home/carlos/Documents/MIA/MIA_Proyecto1/Discos/" &namE->Disco_3.dsk
     char* comando = (char*)malloc(500);
     memset(&comando[0], 0, sizeof(comando));
     // Crear Path
@@ -135,7 +152,7 @@ int mkContructor(int state, char str[], int cont)
         strcat(comando, "sudo mkdir -p \"");
         strcat(comando, mk.path);
         strcat(comando, "\"");
-        printf(comando);
+        // printf(comando);
         system(comando);
         /* Directory does not exist. */
     }
@@ -143,6 +160,7 @@ int mkContructor(int state, char str[], int cont)
     {
         /* opendir() failed for some other reason. */
     }
+    // Crear el disco /home/carlos/Documents/MIA/MIA_Proyecto1
     char* megas=(char*)malloc(15);
     memset(&comando[0], 0, sizeof(comando));
     memset(&megas[0], 0, sizeof(megas));
@@ -157,7 +175,50 @@ int mkContructor(int state, char str[], int cont)
     sprintf(megas, "%d", mk.sizeDisk);
     strcat(comando, megas);
     system(comando); // ejecuta el comando en la terminal del SO
-    free(comando);
-    free(megas);
+    // Path
+    char* pathaux=(char*)malloc(150);
+    char* permission=(char*)malloc(150);
+    memset(&pathaux[0], 0, sizeof(pathaux));
+    memset(&permission[0], 0, sizeof(permission));
+    strcat(pathaux, mk.path);
+    // strcat(pathaux, "/");
+    strcat(pathaux, mk.name);
+    // Give All Permission
+    strcat(permission,"sudo chmod 777 ");
+    strcat(permission, pathaux);
+    system(permission);
+
+    // Crear MBR
+    MBR diskInfo;
+    diskInfo.mbr_tam = mk.sizeDisk * sizeDisk;
+    memset(&diskInfo.mbr_creation_time,0,sizeof(diskInfo.mbr_creation_time));
+    // Fecha del sistema
+    time_t tiempo = time(0);
+    struct tm *tlocal = localtime(&tiempo);
+    strftime(diskInfo.mbr_creation_time,128,"%d/%m/%y %H:%M:%S",tlocal);
+    // random number
+    srand(time(NULL));
+    diskInfo.mbr_disk_signature = rand();
+    // strcat(pathaux, ".dsk");
+
+    FILE* disk = fopen(pathaux, "rb+");
+    /*if(disk == NULL){
+    printf("fallo");
+    }
+    printf("  err %d \n", errno);*/
+    // Guardar MBR
+    fseek(disk, 0, SEEK_SET);
+    fwrite(&diskInfo,sizeof(MBR),1,disk);
+    MBR test;
+    fseek(disk, 0, SEEK_SET);
+    fread(&test,sizeof(MBR),1,disk);
+    printf("ID Disco: %d \n",test.mbr_disk_signature);
+    printf("Fecha De Creacion: %s \n",test.mbr_creation_time);
+    printf("\n");
+    /*if(strcasecmp(test.mbr_partition_1.part_name,"") == 0){
+    printf("Si es nulo");
+    }*/
+    free(pathaux);
+    fclose(disk);
     return 0;
 }

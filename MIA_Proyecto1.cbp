@@ -32,10 +32,13 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="analizador.h" />
+		<Unit filename="diskManage.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="mkdisk.h" />
+		<Unit filename="rmdisk.h" />
+		<Unit filename="structures.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

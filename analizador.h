@@ -3,6 +3,7 @@
 #include<string.h>
 #include<ctype.h>
 #include "mkdisk.h"
+#include "rmdisk.h"
 #define MAX 2
 
 typedef struct command
@@ -75,6 +76,9 @@ void commandAnalyzer(int state, char str[], int start)
     case 1:
         mkContructor(state,str,start);
         break;
+    case 2:
+        rmContructor(state,str,start);
+    break;
     }
 }
 
