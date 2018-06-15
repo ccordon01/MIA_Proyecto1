@@ -33,6 +33,7 @@
 		</Compiler>
 		<Unit filename="analizador.h" />
 		<Unit filename="diskManage.h" />
+		<Unit filename="fdisk.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

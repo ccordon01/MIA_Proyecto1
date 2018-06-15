@@ -16,16 +16,10 @@ typedef struct mkdisk
     char unit[5];
 } mk_init;
 
-typedef struct param
-{
-    char name[10];
-    char value[50];
-} pMK;
-
 int mkContructor(int state, char str[], int cont)
 {
     // Size Disk
-    int sizeDisk = 1024;
+    int sizeDisk = 1024*1024;
     // Command MKDISK
     mk_init mk;
     memset(&mk.name,'\0',sizeof(mk.name));
@@ -33,7 +27,7 @@ int mkContructor(int state, char str[], int cont)
     memset(&mk.unit,'\0',sizeof(mk.unit));
     strcat(mk.unit, "M");
     // Base Program
-    char ch, buffer[45];
+    char ch, buffer[100];
     memset(&buffer,'\0',sizeof(buffer));
     int j=0;
     bool read = true;
@@ -85,7 +79,16 @@ int mkContructor(int state, char str[], int cont)
             else if(strcasecmp("UNIT", name) == 0)
             {
                 memset(&mk.unit,'\0',sizeof(mk.unit));
-                strcat(mk.unit, buffer);
+                if(strcasecmp("M",buffer)){
+                    strcat(mk.unit, "M");
+                    sizeDisk = 1024 * 1024;
+                }
+                else if(strcasecmp("K",buffer)){
+                    strcat(mk.unit, "K");
+                    sizeDisk = 1024;
+                }
+                else{
+                }
             }
             else
             {
@@ -115,11 +118,11 @@ int mkContructor(int state, char str[], int cont)
             {
                 memset(&mk.unit,'\0',sizeof(mk.unit));
                 if(strcasecmp("M",buffer)){
-                    strcat(mk.unit, 'M');
+                    strcat(mk.unit, "M");
                     sizeDisk = 1024 * 1024;
                 }
                 else if(strcasecmp("K",buffer)){
-                    strcat(mk.unit, 'K');
+                    strcat(mk.unit, "K");
                     sizeDisk = 1024;
                 }
                 else{
@@ -177,19 +180,31 @@ int mkContructor(int state, char str[], int cont)
     system(comando); // ejecuta el comando en la terminal del SO
     // Path
     char* pathaux=(char*)malloc(150);
+    char* pathperm=(char*)malloc(150);
     char* permission=(char*)malloc(150);
+    memset(&pathperm[0], 0, sizeof(pathaux));
     memset(&pathaux[0], 0, sizeof(pathaux));
     memset(&permission[0], 0, sizeof(permission));
     strcat(pathaux, mk.path);
-    // strcat(pathaux, "/");
     strcat(pathaux, mk.name);
+    strcat(pathperm, "\"");
+    strcat(pathperm, mk.path);
+    strcat(pathperm, mk.name);
+    strcat(pathperm, "\"");
     // Give All Permission
     strcat(permission,"sudo chmod 777 ");
-    strcat(permission, pathaux);
+    strcat(permission, pathperm);
     system(permission);
 
     // Crear MBR
     MBR diskInfo;
+    MBR_P blankPart;
+    memset(&blankPart.part_name,'\0',sizeof(blankPart.part_name));
+    strcat(blankPart.part_name,"");
+    diskInfo.mbr_partition[0] = blankPart;
+    diskInfo.mbr_partition[1] = blankPart;
+    diskInfo.mbr_partition[2] = blankPart;
+    diskInfo.mbr_partition[3] = blankPart;
     diskInfo.mbr_tam = mk.sizeDisk * sizeDisk;
     memset(&diskInfo.mbr_creation_time,0,sizeof(diskInfo.mbr_creation_time));
     // Fecha del sistema
@@ -221,4 +236,5 @@ int mkContructor(int state, char str[], int cont)
     free(pathaux);
     fclose(disk);
     return 0;
+    // mkdisk &SiZe->8 &pAth->"/home/carlos/Documents/MIA/MIA_Proyecto1/Discos/" &namE->Disco_3.dsk
 }

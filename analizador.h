@@ -4,7 +4,8 @@
 #include<ctype.h>
 #include "mkdisk.h"
 #include "rmdisk.h"
-#define MAX 2
+#include "fdisk.h"
+#define MAX 3
 
 typedef struct command
 {
@@ -78,13 +79,15 @@ void commandAnalyzer(int state, char str[], int start)
         break;
     case 2:
         rmContructor(state,str,start);
+    case 3:
+        fContructor(state,str,start);
     break;
     }
 }
 
 int analyzer(char str[])
 {
-    char ch, buffer[15];
+    char ch, buffer[150];
     memset(&buffer,'\0',sizeof(buffer));
     int i=0,j=0;
     while((ch = str[i++]) != '\0')
@@ -109,5 +112,6 @@ int analyzer(char str[])
             return 0;
         }
     }
+    printf("%s No es un comando valido!\n", buffer);
     return 0;
 }
