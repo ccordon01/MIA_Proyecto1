@@ -18,6 +18,10 @@ typedef struct mkdisk
 
 int mkContructor(int state, char str[], int cont)
 {
+    if(cont == -1){
+        printf("    - Comando sin parametros.\n\n");
+        return 0;
+    }
     // Size Disk
     int sizeDisk = 1024*1024;
     // Command MKDISK
@@ -199,6 +203,8 @@ int mkContructor(int state, char str[], int cont)
     // Crear MBR
     MBR diskInfo;
     MBR_P blankPart;
+    blankPart.part_start = 0;
+    blankPart.part_end = 0;
     memset(&blankPart.part_name,'\0',sizeof(blankPart.part_name));
     strcat(blankPart.part_name,"");
     diskInfo.mbr_partition[0] = blankPart;
@@ -236,5 +242,5 @@ int mkContructor(int state, char str[], int cont)
     free(pathaux);
     fclose(disk);
     return 0;
-    // mkdisk &SiZe->8 &pAth->"/home/carlos/Documents/MIA/MIA_Proyecto1/Discos/" &namE->Disco_3.dsk
+    // mkdisk &SiZe->8 &pAth->"/home/carlos/Documents/MIA/MIA_Proyecto1/Discos/" &namE->Disco_1.dsk
 }

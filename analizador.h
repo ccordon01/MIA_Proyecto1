@@ -5,7 +5,11 @@
 #include "mkdisk.h"
 #include "rmdisk.h"
 #include "fdisk.h"
-#define MAX 3
+#include "mount.h"
+#include "unmount.h"
+#include "mkfile.h"
+#include "rmfile.h"
+#define MAX 7
 
 typedef struct command
 {
@@ -54,6 +58,24 @@ void load()
 
     }
     fclose(fp);
+    FILE *f1;
+    f1 = fopen ("partition_list.txt", "wb+");
+    if (f1 == NULL)
+    {
+        perror("    - No se puede abrir partition_list.txt");
+        return -1;
+    }
+    PD part_list[100];
+    PD part_val;
+    memset(&part_val.id,'\0',sizeof(part_val.id));
+    memset(&part_val.name,'\0',sizeof(part_val.name));
+    strcat(part_val.name,"");
+    for(int i=0;i<100;i++){
+    part_list[i] = part_val;
+    }
+    fseek(f1, 0, SEEK_SET);
+    fwrite(&part_list,sizeof(part_list),1,f1);
+    fclose(f1);
 }
 
 int isKeyword(char buffer[])
@@ -81,6 +103,18 @@ void commandAnalyzer(int state, char str[], int start)
         rmContructor(state,str,start);
     case 3:
         fContructor(state,str,start);
+    break;
+    case 4:
+        mContructor(state,str,start);
+    break;
+    case 5:
+        umContructor(state,str,start);
+    break;
+    case 6:
+        mkfContructor(state,str,start);
+    break;
+    case 7:
+        rmfContructor(state,str,start);
     break;
     }
 }
@@ -112,6 +146,13 @@ int analyzer(char str[])
             return 0;
         }
     }
-    printf("%s No es un comando valido!\n", buffer);
-    return 0;
+    int state = isKeyword(buffer);
+            if(state != 0)
+            {
+                // printf("%s is keyword\n", buffer);
+                commandAnalyzer(state, str, -1);
+            }
+            else
+                printf("%s No es un comando valido!\n", buffer);
+            return 0;
 }
