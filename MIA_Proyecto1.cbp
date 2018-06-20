@@ -38,8 +38,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="mkdisk.h" />
+		<Unit filename="mkfile.h" />
+		<Unit filename="mount.h" />
+		<Unit filename="rep.h" />
 		<Unit filename="rmdisk.h" />
+		<Unit filename="rmfile.h" />
 		<Unit filename="structures.h" />
+		<Unit filename="unmount.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

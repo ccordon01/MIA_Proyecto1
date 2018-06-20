@@ -9,7 +9,8 @@
 #include "unmount.h"
 #include "mkfile.h"
 #include "rmfile.h"
-#define MAX 7
+#include "rep.h"
+#define MAX 8
 
 typedef struct command
 {
@@ -70,6 +71,7 @@ void load()
     memset(&part_val.id,'\0',sizeof(part_val.id));
     memset(&part_val.name,'\0',sizeof(part_val.name));
     strcat(part_val.name,"");
+    strcat(part_val.id,"");
     for(int i=0;i<100;i++){
     part_list[i] = part_val;
     }
@@ -116,6 +118,9 @@ void commandAnalyzer(int state, char str[], int start)
     case 7:
         rmfContructor(state,str,start);
     break;
+    case 8:
+        repContructor(state,str, start);
+        break;
     }
 }
 

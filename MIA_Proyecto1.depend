@@ -18,12 +18,12 @@
 	<ctype.h>
 	<stdbool.h>
 
-1529126588 source:/home/carlos/Documents/MIA/MIA_Proyecto1/main.c
+1529162223 source:/home/carlos/Documents/MIA/MIA_Proyecto1/main.c
 	<stdio.h>
 	<stdlib.h>
 	"analizador.h"
 
-1529139676 /home/carlos/Documents/MIA/MIA_Proyecto1/analizador.h
+1529165636 /home/carlos/Documents/MIA/MIA_Proyecto1/analizador.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -35,8 +35,9 @@
 	"unmount.h"
 	"mkfile.h"
 	"rmfile.h"
+	"rep.h"
 
-1529131786 /home/carlos/Documents/MIA/MIA_Proyecto1/mkdisk.h
+1529177799 /home/carlos/Documents/MIA/MIA_Proyecto1/mkdisk.h
 	<time.h>
 	<stdio.h>
 	<stdlib.h>
@@ -47,7 +48,7 @@
 	<errno.h>
 	"structures.h"
 
-1529131807 /home/carlos/Documents/MIA/MIA_Proyecto1/rmdisk.h
+1529173995 /home/carlos/Documents/MIA/MIA_Proyecto1/rmdisk.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -60,7 +61,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1529138673 /home/carlos/Documents/MIA/MIA_Proyecto1/fdisk.h
+1529173981 /home/carlos/Documents/MIA/MIA_Proyecto1/fdisk.h
 	<time.h>
 	<stdio.h>
 	<stdlib.h>
@@ -71,7 +72,7 @@
 	<errno.h>
 	<unistd.h>
 
-1529131171 /home/carlos/Documents/MIA/MIA_Proyecto1/mount.h
+1529174166 /home/carlos/Documents/MIA/MIA_Proyecto1/mount.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -80,7 +81,7 @@
 	<dirent.h>
 	<errno.h>
 
-1529134932 /home/carlos/Documents/MIA/MIA_Proyecto1/unmount.h
+1529165649 /home/carlos/Documents/MIA/MIA_Proyecto1/unmount.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -89,7 +90,7 @@
 	<dirent.h>
 	<errno.h>
 
-1529141804 /home/carlos/Documents/MIA/MIA_Proyecto1/mkfile.h
+1529174182 /home/carlos/Documents/MIA/MIA_Proyecto1/mkfile.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -98,7 +99,7 @@
 	<dirent.h>
 	<errno.h>
 
-1529141815 /home/carlos/Documents/MIA/MIA_Proyecto1/rmfile.h
+1529181744 /home/carlos/Documents/MIA/MIA_Proyecto1/rmfile.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -106,4 +107,14 @@
 	<stdbool.h>
 	<dirent.h>
 	<errno.h>
+
+1529180869 /home/carlos/Documents/MIA/MIA_Proyecto1/rep.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<stdbool.h>
+	<dirent.h>
+	<errno.h>
+	<math.h>
 

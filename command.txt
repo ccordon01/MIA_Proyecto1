@@ -5,4 +5,5 @@
 5 UNMOUNT
 6 MKFILE
 7 RM
+8 REP
 

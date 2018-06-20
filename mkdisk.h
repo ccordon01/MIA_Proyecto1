@@ -70,6 +70,10 @@ int mkContructor(int state, char str[], int cont)
             // Posible optimizacion
             if(strcasecmp("SIZE", name) == 0)
             {
+                if(atoi(buffer) % 8 != 0){
+                printf("    - Tamano no valido!\n\n");
+                return 0;
+                }
                 mk.sizeDisk = atoi(buffer);
             }
             else if(strcasecmp("PATH", name) == 0)
@@ -83,11 +87,12 @@ int mkContructor(int state, char str[], int cont)
             else if(strcasecmp("UNIT", name) == 0)
             {
                 memset(&mk.unit,'\0',sizeof(mk.unit));
-                if(strcasecmp("M",buffer)){
+                if(strcasecmp("M",buffer) == 0){
                     strcat(mk.unit, "M");
                     sizeDisk = 1024 * 1024;
                 }
-                else if(strcasecmp("K",buffer)){
+                else if(strcasecmp("K",buffer) == 0){
+                    printf("entro");
                     strcat(mk.unit, "K");
                     sizeDisk = 1024;
                 }
@@ -97,6 +102,8 @@ int mkContructor(int state, char str[], int cont)
             else
             {
                 // Errores
+                printf("    - Comando inexistente\n\n");
+                return 0;
             }
             j = 0;
             memset(&buffer,'\0',sizeof(buffer));
@@ -105,6 +112,7 @@ int mkContructor(int state, char str[], int cont)
     if((j != 0) && read)
         {
             buffer[j] = '\0';
+            printf("----%s\n",buffer);
             // Posible optimizacion
             if(strcasecmp("SIZE", name) == 0)
             {
@@ -121,11 +129,12 @@ int mkContructor(int state, char str[], int cont)
             else if(strcasecmp("UNIT", name) == 0)
             {
                 memset(&mk.unit,'\0',sizeof(mk.unit));
-                if(strcasecmp("M",buffer)){
+                if(strcasecmp("M",buffer) == 0){
                     strcat(mk.unit, "M");
                     sizeDisk = 1024 * 1024;
                 }
-                else if(strcasecmp("K",buffer)){
+                else if(strcasecmp("K",buffer) == 0){
+                printf("entro");
                     strcat(mk.unit, "K");
                     sizeDisk = 1024;
                 }
@@ -135,6 +144,8 @@ int mkContructor(int state, char str[], int cont)
             else
             {
                 // Errores
+                printf("    - Comando inexistente\n\n");
+                return 0;
             }
             j = 0;
             memset(&buffer,'\0',sizeof(buffer));
