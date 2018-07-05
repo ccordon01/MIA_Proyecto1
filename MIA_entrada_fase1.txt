@@ -1,0 +1,144 @@
+#CREACIÓN DE DISCOS DUROS
+
+#Disco1
+Mkdisk &size->320 &path->/home/user/ &name->Disco1.dsk %uniT->k 
+
+#Disco2
+Mkdisk &size->32 &path->/home/user/ &name->Disco2.dsk %uniT->k 
+
+#Disco3
+Mkdisk &size->120 &path->/home/user/calificacion &name->Disco3.dsk %uniT->m
+
+#Disco4
+
+mkdisk &size->200 &path->/home/user/calificacion &name->Disco4.dsk 
+
+#Disco5
+
+mkdisk &path->"/home/user/mis discos" &size->160 &name->Disco_5.dsk	
+
+mkdisk &path->"/home/user/mis discos" &size->150 &name->Disco_5.dsk
+
+mkdisk &path->"/home/user/mis discos" &size->150 &name->Disco_PRUEBA.dsk 
+
+#ELIMINACIÓN
+
+
+rmDisk &path->"/home/user/mis discos/Disco_PRUEBA.dsk"
+rmDisk &path->"/home/user/Disco2.dsk"
+
+
+#CREACIÓN DE PARTICIONES SOBRE EL DISCO 1
+
+#se crea la partición
+
+fdisk &sizE->72 &path->/home/user/Disco1.dsk &name->Particion1
+fdisk &sizE->8 &path->/home/user/Disco2.dsk &name->Particion1
+
+#se crea la partición
+
+fdisk &sizE->40 &path->/home/user/Disco1.dsk &name->Particion2
+fdisk &sizE->40 &path->/home/user/Disco1.dsk &name->Particion3 %TYPE->E %unit->K
+fdisk &sizE->40 &path->/home/user/Disco1.dsk &name->Particion1 %TYPE->l %unit->B
+fdisk &sizE->40 &path->/home/user/Disco1.dsk &name->Particion2 %TYPE->l %unit->B
+fdisk &sizE->40 &path->/home/user/Disco1.dsk &name->Particion3 %TYPE->l %unit->B
+
+#no se crea - ya existe
+fdisk &sizE->72 &path->/home/user/Disco1.dsk &name->Particion1
+
+#no se crea - falta de espacio
+fdisk &sizE->720 &path->/home/user/Disco1.dsk &name->Particion4
+
+
+#ELIMINACIÓN DE LA PARTICIÓN 1
+fdisk %delete->fast &name->Particion1 &path->"/home/user/Disco1.dsk"
+
+#creacion de la nueva particion
+fdisk &sizE->40 &path->/home/user/Disco1.dsk &name->Particion1 %unit->k
+
+fdisk &name->Particion2 %delete->full \ &path->"/home/Disco1.dsk"
+fdisk &sizE->5 &path->/home/user/Disco1.dsk &name->Particion1 %unit->k
+
+
+fdisk %add->1 %unit->K –path->"/home/user/Disco1.dsk" \&name->Particion 2
+
+#REPORTES
+rep &id=vda1 &Path="/home/user/reports/reporte 2.jpg" \^&name=MBR
+rep &id=vda1 &Path="/home/user/reports/reporte 3.jpg" \^&name=DISK
+
+
+#MONTAJE DE LAS PARTICIONES
+
+mount &path->/home/user/Disco1.dsk &name->Particion1
+mount &path->/home/user/Disco1.dsk &name->Particion2
+mount &path->/home/user/Disco1.dsk &name->Particion3
+mount &path->/home/user/Disco2.dsk &name->Particion1
+
+#reporte
+mount
+
+#ELIMINACI[ON DE MOUNT
+unmount &id1->vda1
+mount
+mount &path->/home/user/Disco1.dsk &name->Particion1 &id->vda1
+
+#CREACION DE SISTEMA DE ARCHIVOS
+
+MkfS &id->vda1 %type->fast %FS->EC
+MkfS &id->vda1 %add->30 %unit->k
+
+#creacion de archivos
+Mkfile &id->vdq1 &name->archivo0 &contenido->"Este es un texto para el archivo que se estará generando en el sistema."
+Mkfile &id->vdq1 &name->archivo1 &contenido->"Hola mundo esto si funciona."
+
+#REPORTE DE LOS ARCHIVOS
+rep &id->vdq1 &Path->"/home/user/reports/reporte 4.jpg" &name->BITMAP
+rep &id->vda1 &Path->"/home/user/reports/ITEXT.TXT" \^
+&name->BM_BLOCK
+
+#ELIMINACION DE LOS ARCHIVOS
+rm &id->vdq1 &FILEID->archivo0
+
+#CREACION DEL ARCHIVO CON MAS CONTENIDO
+Mkfile &id->vda1 &name->archivo0 &contenido->Este es un texto para el archivo que se estará generando en el sistema, esto es para sistema de archivos.
+
+#REPORTE DE LOS ARCHIVOS
+rep &id->vda1 &Path->"/home/user/reports/reporte 4.jpg" \^
+&name->BLOCK
+rep &id->vda1 &name->bm_arbdir
+
+#ELIMINACION DE TODOS LOS ARCHIVOS
+rm &id->vda1 &FILEID->archivo0 &FILEID->archivo1
+
+#REPORTE DE LOS ARCHIVOS
+rep &id=vda1 &Path="/home/user/reports/reporte 4.jpg" \^
+&name=BLOCK
+rep &id=vda1 &Path="/home/user/reports/ITEXT.TXT" \^
+&name=BM_BLOCK
+
+#REPORTES DE DF
+
+df %f
+df %m
+df %h
+df %i
+
+
+#REPORTES DE DU
+
+Du &h %n->3
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+

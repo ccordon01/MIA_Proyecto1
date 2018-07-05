@@ -134,7 +134,6 @@ int mkContructor(int state, char str[], int cont)
                     sizeDisk = 1024 * 1024;
                 }
                 else if(strcasecmp("K",buffer) == 0){
-                printf("entro");
                     strcat(mk.unit, "K");
                     sizeDisk = 1024;
                 }

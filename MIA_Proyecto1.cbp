@@ -39,6 +39,7 @@
 		</Unit>
 		<Unit filename="mkdisk.h" />
 		<Unit filename="mkfile.h" />
+		<Unit filename="mkfs.h" />
 		<Unit filename="mount.h" />
 		<Unit filename="rep.h" />
 		<Unit filename="rmdisk.h" />

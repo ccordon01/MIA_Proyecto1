@@ -10,7 +10,8 @@
 #include "mkfile.h"
 #include "rmfile.h"
 #include "rep.h"
-#define MAX 8
+#include "mkfs.h"
+#define MAX 9
 
 typedef struct command
 {
@@ -120,6 +121,9 @@ void commandAnalyzer(int state, char str[], int start)
     break;
     case 8:
         repContructor(state,str, start);
+        break;
+    case 9:
+        mkfsContructor(state,str, start);
         break;
     }
 }
